@@ -31,7 +31,8 @@ class DashingFrontend(pykka.ThreadingActor, core.CoreListener):
 	def on_stop(self):
 		message = json.dumps({
 			"auth_token": self.auth_token,
-			"title": "Stopped"
+			"title": "Stopped",
+			"type": "stopped"
 		})
 
 		logger.info(message)
@@ -47,6 +48,7 @@ class DashingFrontend(pykka.ThreadingActor, core.CoreListener):
 		message = json.dumps({ 
 			"auth_token": self.auth_token, 
 			"title": tl_track.track.name,
+			"type": "playing",
 			"text": "%s - %s" % ("/".join(artists), tl_track.track.album.name),
 		})
 
@@ -58,7 +60,8 @@ class DashingFrontend(pykka.ThreadingActor, core.CoreListener):
 
 		message = json.dumps({
 			"auth_token": self.auth_token,
-			"title": "Stopped"
+			"title": "Stopped",
+			"type": "stopped"
 		})
 
 		logger.info(message)
